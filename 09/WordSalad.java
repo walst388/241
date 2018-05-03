@@ -210,19 +210,66 @@ public class WordSalad implements Iterable<String> {
         return null;
     }
     
-    
+    /**Split.
+     * @param k the integer to split the remainder after the inital
+     * distribution.
+     * @return WordSalad[]
+     *
+     * */
     public WordSalad[] split(int k) {
         return null;
     }
-        
+    
+    /**Essentially the inverse of distribute.
+     * @param blocks the array of WordSalad objects to be merged together.
+     * @return WordSalad object. Takes the array of these objects and returns
+     * it as one.
+     *
+     * Merges the first word from the first block (array element),
+     * merges the second word from the second block and so on.
+     * If any block becomes empty at any point just skip it in subsequent
+     * rounds.*/
     public static WordSalad merge(WordSalad[] blocks) {
-        return null;
-    }
+        //create empty WordSalad object for the output
+        WordSalad output = new WordSalad();
         
+        //sets current to the first WordSalad's first node
+        WordNode current = blocks[0].first;
+        
+        //while current isn't null
+        while(current != null){
+            //run through all blocks and set current to the first node in each
+            //block. Add the word from the node to the output. Change the first
+            //element to the next.
+            for(WordSalad block: blocks){
+                current = block.first;
+                if(current != null){
+                    output.addLast(current.word);
+                }
+                try{
+                    block.first = block.first.next;
+                }catch(NullPointerException e){}
+            }
+        }
+
+        return output;
+    }
+    
+    /**The inverse of chop.
+     * @param blocks the array of WordSalad objects to be joined together.
+     * @return WordSalad object. Takes the array of these objects and returns
+     * it as one.
+     *
+     * Takes an array of WordSalad objects and string them together one after
+     * the other into one object.*/
     public static WordSalad join(WordSalad[] blocks) {
         return null;
     }
 
+    /**Recombine is essentially the inverse of split.
+     * @param blocks the array of WordSalad objects to work on.
+     * @param k is the integer the original text used to split
+     * @return WordSalad object that recombines the split original text.*/
     public static WordSalad recombine(WordSalad[] blocks, int k) {
         return null;
     }
