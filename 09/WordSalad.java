@@ -28,7 +28,7 @@ public class WordSalad implements Iterable<String> {
         }
     }
 
-    /**Method to add a word to the WordNode linked list.
+    /**Method to add a word to the start of the linked list.
      * @param word the word to be added to the linked list.*/
     public void add(String word) {
         //if the linked list is originally empty, create a new WordNode linked
@@ -56,7 +56,8 @@ public class WordSalad implements Iterable<String> {
         this.last = newLast; 
     }
  
-    /**Embedded class to build the linked list of words (nodes).*/
+    /**Embedded class to build the singly linked list of words (nodes) and
+     * their next pointer.*/
     private class WordNode {
 
         /**The string value of the word in this WordNode.*/
@@ -118,7 +119,7 @@ public class WordSalad implements Iterable<String> {
     // Method stubs to be completed for the assignment.
     // See the assignment description for specification of their behaviour.
     
-    /**Distributes <code>this</code> into an array of @param k instances of
+    /**Distributes <code>this</code> into an array of k instances of
      * WordSalad objects. 
      * @param k is a positive integer that represents the number of instances.
      * @return WordSalad[] of the words rearranged using the distribute
@@ -140,8 +141,47 @@ public class WordSalad implements Iterable<String> {
      *
      *          [The, fox, the], [quick, jumps, lazy], [brown, over, dog]*/
     public WordSalad[] distribute(int k) {
-         
-        return null;
+        //output array
+        WordSalad[] output = new WordSalad[k];
+        WordNode current = this.first;
+        
+        //index of where to set current to start
+        int index = 0;
+
+        //for every object to create
+        for(int i = 0; i < k; i++){
+            
+            //move current to the right index times
+            for(int a = 0; a < index; a++){
+                current = current.next;
+            }
+
+            //create a new WordSalad empty object
+            WordSalad distObj = new WordSalad();
+            
+            //while moving hasn't pushed current off the end of the list
+            while(current != null){
+                distObj.addLast(current.word);
+
+                //move current along k nodes
+                //catch null pointer when reach end
+                try{
+                    for(int m = 0; m < k; m++){
+                        current = current.next;
+                    }
+                }catch(NullPointerException e){}
+            }
+            
+            //reset current to the start
+            current = this.first;
+
+            //increase index so index moves the current one more to the right
+            index++;
+
+            //add the final object to the array
+            output[i] = distObj;
+        }
+        return output;
     }
        
     /**Chops the words into nearly equally sized blocks.
@@ -169,7 +209,8 @@ public class WordSalad implements Iterable<String> {
     public WordSalad[] chop(int k) {
         return null;
     }
-        
+    
+    
     public WordSalad[] split(int k) {
         return null;
     }
